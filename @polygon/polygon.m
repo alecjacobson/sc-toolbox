@@ -62,7 +62,7 @@ if (n > 0)
   [alpha,isccw,index] = angle(p0);
   if ~isccw
     p0.vertex = flipud(p0.vertex);
-    alpha = flipud(alpha);
+    alpha = 2 - flipud(alpha);
   end
   p0.angle = alpha;
   if abs(index) > 1

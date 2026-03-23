@@ -13,6 +13,5 @@ cr = M.crossratio;
 aff = M.affine;
 wcfix = M.center{2};
 Q = M.qlgraph;
-qdata = M.qdata;
 
-fp = crderiv(zp,beta,cr,aff,wcfix,Q,qdata);
+fp = crderiv(zp,beta,cr,aff,wcfix,Q);

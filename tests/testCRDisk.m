@@ -1,11 +1,5 @@
-classdef testDisk < matlab.unittest.TestCase
-%TESTDISK  Regression tests for diskmap.
-%
-%   Fixtures are loaded once per class run via TestClassSetup.
-%   Each test method loops over all polygon entries and reports failures
-%   with the polygon label as the diagnostic message.
-%
-%   Prerequisites: run generateFixtures() once to produce tests/fixtures.mat.
+classdef testCRDisk < matlab.unittest.TestCase
+%TESTCRDISK  Regression tests for crdiskmap.
 
     properties
         entries = []
@@ -15,15 +9,15 @@ classdef testDisk < matlab.unittest.TestCase
         function loadEntries(testCase)
             p = fixturesPath();
             if exist(p, 'file') ~= 2, return; end
-            s = load(p, 'disk');
-            if isfield(s, 'disk'), testCase.entries = s.disk; end
+            s = load(p, 'crdisk');
+            if isfield(s, 'crdisk'), testCase.entries = s.crdisk; end
         end
     end
 
     methods (Access = private)
         function m = buildMap(~, fix)
             opt = sctool.scmapopt('trace', 0, 'tol', 1e-12);
-            m   = diskmap(polygon(fix.vertices, fix.angles), opt);
+            m   = crdiskmap(polygon(fix.vertices, fix.angles), opt);
         end
     end
 
@@ -75,8 +69,8 @@ classdef testDisk < matlab.unittest.TestCase
         function testDerivativeFiniteDiff(testCase)
             testCase.assumeNotEmpty(testCase.entries, ...
                 'fixtures.mat not found — run generateFixtures() first');
-            z = [0.2+0.1i, -0.3+0.4i, 0.1-0.5i];   % |z| <= 0.9, safely interior
             for k = 1:numel(testCase.entries)
+                z = [-0.1 + 0.5i, 0.6 - 0.7i];
                 fix = testCase.entries(k);
                 m   = testCase.buildMap(fix);
                 h   = 1e-6;

@@ -5,13 +5,17 @@ function z = eval(map,w)
 %
 %   See also ANNULUSMAP.
 
-%   Copyright 2014 by Toby Driscoll.
+%   Copyright 2026 by Toby Driscoll.
 %   Written by Alfa Heryudono.
-
-% TODO: check if w is in the annulus
 
 kww = 0;
 ic = 2;
+
+% TODO: Expedient, but probably not fast. True vectorization requires working within zdsc.
+if length(w) > 1
+    z = arrayfun(@(x) eval(map, x), w);
+    return
+end
 
 % check if w is in W0.
 idx = find(map.w0 == w, 1 );

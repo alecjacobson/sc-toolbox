@@ -6,10 +6,14 @@ function w = evalinv(map,z)
 %
 % See also ANNULUSMAP, ANNULUSMAP.EvAL.
 
-% Copyright by Toby Driscoll, 2014.
+% Copyright by Toby Driscoll, 2026.
 % Written by Alfa Heryudono, 2003. 
 
-% TODO: check if z is in the doubly connected region
+% TODO: Easy vectorization, but not fast.
+if length(z) > 1
+    w = arrayfun(@(x) evalinv(map, x), z);
+    return
+end
 
 % z is not allowed to be a vertex.
 % check if z is in Z0.
